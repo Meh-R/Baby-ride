@@ -13,7 +13,7 @@ import ItemCategoryList from "@/components/list/ItemCategoryList";
 import BurgerCreate from "@/components/header/BurgerCreate";
 import { Context2 } from "@/context/context2";
 
-const page = () => {
+const Page = () => {
   const [productList, setProductList] = useState<Product[]>([]);
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [isReloadNeeded, setIsReloadNeeded] = useState(1);
@@ -28,10 +28,10 @@ const page = () => {
       setProductList(response.data);
     };
     console.log(page);
-    if (!selectedCategory) {
+    if (!selectedCategory && !text1) {
       getProductList();
     }
-  }, [isReloadNeeded, page, selectedCategory]);
+  }, [isReloadNeeded, page, selectedCategory, text1]);
 
   useEffect(() => {
     const productSearch = async () => {
@@ -54,6 +54,7 @@ const page = () => {
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setCategoryPage(0);
+    setText1(""); // Réinitialiser le texte de recherche lors de la sélection d'une catégorie
   };
 
   return (
@@ -81,7 +82,7 @@ const page = () => {
               setText1(e.target.value);
             }}
             value={text1}
-            className="appearance-none bg-transparent border-none  text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            className="appearance-none bg-transparent border-none text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
             type="text"
             placeholder="Search product"
           />
@@ -98,4 +99,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

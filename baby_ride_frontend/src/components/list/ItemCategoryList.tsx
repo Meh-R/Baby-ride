@@ -22,6 +22,15 @@ const ItemCategoryList = ({
 }) => {
   const { isReloadNeeded, setIsReloadNeeded } = useContext(Context2);
   const [categoryType, setCategoryType] = useState<string>("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (window.localStorage.getItem("role") === "admin") {
+        setIsAdmin(true);
+      }
+    }
+  }, []);
 
   async function getProductListByCategory(type: string, page: number) {
     const response = await productByCategory(type, page);
@@ -31,7 +40,7 @@ const ItemCategoryList = ({
   async function categoryDelete(elementId: string) {
     await deleteCategory(elementId)
       .then(async (res) => {
-        toast.success("Category delete");
+        toast.success("Category deleted");
         setIsReloadNeeded(new Date().getTime());
       })
       .catch((e) => {
@@ -78,9 +87,11 @@ const ItemCategoryList = ({
                     setIsReloadNeeded={setIsReloadNeeded}
                     id={item.id}
                   />
-                  <Button onClick={() => categoryDelete(item.id)}>
-                    <ImBin />
-                  </Button>
+                  {isAdmin && (
+                    <Button onClick={() => categoryDelete(item.id)}>
+                      <ImBin />
+                    </Button>
+                  )}
                 </div>
               </CarouselItem>
             ))}

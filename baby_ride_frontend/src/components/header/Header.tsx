@@ -59,7 +59,6 @@ const Header = ({ children }: { children: React.ReactNode }) => {
   async function cartHasProductUpdate(elementId: string, quantity: number) {
     await updateCartHasProduct(elementId, quantity)
       .then(async (res) => {
-        toast.success("Produit du panier mis à jour");
         setReload(new Date().getTime());
       })
       .catch((e) => {
@@ -73,11 +72,22 @@ const Header = ({ children }: { children: React.ReactNode }) => {
 
   const handleQuantityChange = (productId: string, change: number) => {
     setQuantities((prev) => {
-      const newQuantity = prev[productId] + change;
+      const currentQuantity = prev[productId];
+      const newQuantity = currentQuantity + change;
+      const product = cartHasProductList.find(
+        (item) => item.product.id === productId
+      );
+
       if (newQuantity < 0) {
         toast.error("La quantité ne peut pas être inférieure à zéro.");
         return prev;
       }
+
+      if (product && newQuantity > product.product.stock) {
+        toast.error("La quantité ne peut pas dépasser le stock disponible.");
+        return prev;
+      }
+
       cartHasProductUpdate(productId, newQuantity);
       return { ...prev, [productId]: newQuantity };
     });
@@ -131,7 +141,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
                   <SheetTrigger asChild>
                     <span className="flex flex-row items-center">
                       <RiShoppingCart2Line />{" "}
-                      <span className=" text-black rounded-full w-6 h-6 flex items-center justify-center">
+                      <span className="text-black rounded-full w-6 h-6 flex items-center justify-center">
                         ({cartHasProductList.length})
                       </span>
                     </span>
