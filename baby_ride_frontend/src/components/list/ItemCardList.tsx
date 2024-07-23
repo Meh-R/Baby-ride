@@ -31,7 +31,7 @@ const ItemCardList = ({ productList }: { productList: Product[] }) => {
               <Link
                 href={`/productPage/${item.id}`}
                 key={item.id}
-                className="flex mt-20  bg-white items-center justify-center"
+                className="flex mt-5  bg-white items-center justify-center"
               >
                 <div className="max-w-xs cursor-pointer rounded-lg p-2 duration-150 hover:scale-104 hover:shadow-md">
                   <img
