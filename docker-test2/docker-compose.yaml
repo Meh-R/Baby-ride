@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  babyride:
+    image: mysql:latest
+    ports:
+      - 5433:5433
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    networks:
+      - mysqlNetwork
+  phpmyadminContainer:
+    image: phpmyadmin:latest
+    ports:
+      - 5435:5435
+    environment:
+      PMA_HOST: babyride
+      PMA_PORT: 5433
+    networks:
+      - mysqlNetwork
+networks:
+  mysqlNetwork:
+    external: true
