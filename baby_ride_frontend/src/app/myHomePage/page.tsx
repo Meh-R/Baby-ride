@@ -88,10 +88,12 @@ const page = () => {
         </div>
         <ItemCardList productList={productList} />
       </Context2.Provider>
-      <Pagination
-        page={selectedCategory ? categoryPage : page}
-        setPage={selectedCategory ? setCategoryPage : setPage}
-      />
+      {!text1 && (
+        <Pagination
+          page={selectedCategory ? categoryPage : page}
+          setPage={selectedCategory ? setCategoryPage : setPage}
+        />
+      )}
     </div>
   );
 };

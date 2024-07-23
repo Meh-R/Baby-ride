@@ -52,7 +52,7 @@ const ItemCardList = ({ productList }: { productList: Product[] }) => {
                   </p>
                 </div>
               </Link>
-              <div className="w-full md:w-1/4 flex flex-row justify-around">
+              <div className="w-full md:ml-5 md:w-1/4 flex flex-row justify-around">
                 <ButtonUpdateProduct
                   setIsReloadNeeded={setIsReloadNeeded}
                   id={item.id}
