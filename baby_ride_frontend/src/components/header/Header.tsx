@@ -88,7 +88,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
       <header>
         <div className="bg-yellow-100 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-0">
           <div className="flex flex-row justify-between items-center">
-            <a href="#" className="">
+            <a href={`/myHomePage`} className="">
               <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                 Baby ride
               </span>
